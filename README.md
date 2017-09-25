@@ -1,0 +1,1 @@
+# share-by-QR-Android-Application
