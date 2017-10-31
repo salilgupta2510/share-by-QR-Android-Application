@@ -4,14 +4,9 @@ import { TabViewAnimated, TabBar, SceneMap } from 'react-native-tab-view';
 import FirstRoutes from './Firstroute.js';
 import SecondRoutes from './Secondroute.js';
 
- 
-const FirstRoute = () => 
-    <FirstRoutes />;
+const FirstRoute = () => <FirstRoutes />
 
-
-
-const SecondRoute = () => 
-    <SecondRoutes />;
+const SecondRoute = () => <SecondRoutes />
  
 export default class FirstPage extends PureComponent {
   state = {

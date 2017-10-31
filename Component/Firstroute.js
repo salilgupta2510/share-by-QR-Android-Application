@@ -44,8 +44,6 @@ class FirstRoutes extends React.Component {
           });
     }
 
-
-    
     _shareTextMessage () {
         Share.share({
           message: this.state.scannerData.data
