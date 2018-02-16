@@ -32,9 +32,9 @@ export default class ScannerApp extends Component {
     switch(this.state.flag){
       case false:
         return(this.state.hasCameraPermission === null ?
-          <Text>Requesting for camera permission</Text> :
+          <Text style={{marginLeft:10,marginTop:20}}>Requesting for camera permission</Text> :
           this.state.hasCameraPermission === false ?
-          <Text>Camera permission is not granted</Text> :
+          <Text style={{marginLeft:10,marginTop:20}}>Camera permission is not granted</Text> :
             <BarCodeScanner
               onBarCodeRead={this._handleBarCodeRead}
               style={{ height: '80%', width: '100%' }}

@@ -7,6 +7,7 @@ class SecondRoutes extends React.Component {
         super(props);
         this.state = {
             result: '',
+            text_height:50,
         };
         this._shareTextMessage=this._shareTextMessage.bind(this);
         this._showResult=this._showResult.bind(this);
@@ -24,23 +25,35 @@ class SecondRoutes extends React.Component {
       _showResult (result) {
         console.log(result)
       }
+
+      changeHeight(old,newHeight)
+      {
+        if(newHeight>old)
+            return newHeight;
+        else
+            return old;
+      }
+
     render() {
         return (
-            <View >
-                <TextInput
-                    multiline={true}
-                    numberOfLines={4}
-                    onChangeText={this.setResult}
-                    value={this.state.result}
-                />
-                {this.state.result ? <QRCode value={this.state.result} size={250} /> : false}
-                
-                    <TouchableHighlight onPress={this._shareTextMessage}>
-                        <View style={styles.button}>
-                            <Text>Click to share message</Text>
-                        </View>
-                    </TouchableHighlight>
-              
+            <View style={{flex:1,marginTop:20}}>
+                <View style={{margin:10}}>
+                    <TextInput
+                        underlineColorAndroid={'rgba(0,0,0,0)'}
+                        placeholder="Type here to encode!"
+                        onContentSizeChange={(e) => this.setState({text_height:this.changeHeight(50,e.nativeEvent.contentSize.height)})}
+                        style={{height:this.state.text_height,marginTop:10,fontSize:25}}
+                        multiline={true}
+                        onChangeText={this.setResult}
+                        value={this.state.result}
+                    />
+                </View>
+
+                {this.state.result ? 
+                    <View style={{alignItems:"center",justifyContent:"center",flex:1}}> 
+                        <QRCode value={this.state.result} size={250}/> 
+                    </View> 
+                : false}       
 
             </View>
         );
@@ -56,6 +69,7 @@ const styles = StyleSheet.create({
       backgroundColor: '#76c9f8',
       padding: 10,
       margin: 10,
+      marginBottom:20,
       borderRadius: 5
     }
 });

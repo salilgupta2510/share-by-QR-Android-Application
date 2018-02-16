@@ -1,5 +1,5 @@
 import React from 'react';
-import {TouchableHighlight, Share, Button, Text, View, StyleSheet } from 'react-native';
+import {TouchableOpacity, Share, Button, Text, View, StyleSheet } from 'react-native';
 import ScannerApp from './scanner.js';
 import CheckBox from 'react-native-check-box';
 import ScannedResults from './scannedResults.js';
@@ -19,10 +19,13 @@ class FirstRoutes extends React.Component {
         this.scanned = this.scanned.bind(this);
         this._shareTextMessage=this._shareTextMessage.bind(this);
         this._showResult=this._showResult.bind(this);
-        
-        
+    }
+
+    componentWillMount()
+    {
 
     }
+
     onCheckboxChange() {
         this.setState({ checkboxFlag: !this.state.checkboxFlag });
     }
@@ -56,9 +59,13 @@ class FirstRoutes extends React.Component {
       }
     render() {
         return (
-            <View style={[styles.container, { backgroundColor: '#fff' }]} >
+            <View style={[styles.container, { backgroundColor: '#fff',flex:1}]}>
                 {this.state.buttonFlag ? <ScannerApp scanned={this.scanned} /> :
-                    <ScannedResults ifText={this.ifText} scannedData={this.state.scannerData.data} browserFlag={this.state.checkboxFlag} />}
+                    <View style={{marginTop:20,flex:1}}>
+                        <ScannedResults ifText={this.ifText} scannedData={this.state.scannerData.data} browserFlag={this.state.checkboxFlag} />
+                     </View>
+                 }
+                   
                 {this.state.buttonFlag ? <CheckBox
                     style={{ flex: 1, padding: 10 }}
                     onClick={() => this.onCheckboxChange()}
@@ -68,16 +75,16 @@ class FirstRoutes extends React.Component {
 
                 {!this.state.buttonFlag ? 
                     <View style={styles.container}>
-                    <TouchableHighlight onPress={this.buttonPress}>
+                    <TouchableOpacity onPress={this.buttonPress}>
                     <View style={styles.button}>
-                            <Text>Scan Again</Text>
+                            <Text>Re-Scan</Text>
                         </View>
-                    </TouchableHighlight>
-                    <TouchableHighlight onPress={this._shareTextMessage}>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={this._shareTextMessage}>
                         <View style={styles.button}>
-                            <Text>Click to share message</Text>
+                            <Text>Share as a message</Text>
                         </View>
-                    </TouchableHighlight>
+                    </TouchableOpacity>
                     </View>  : false}
                    
                 </View>
@@ -90,10 +97,12 @@ const styles = StyleSheet.create({
       
     },
     button: {
-      backgroundColor: '#76c9f8',
+      backgroundColor: '#ffffff',
       padding: 10,
       margin: 10,
-      borderRadius: 5
+      elevation:5,
+      borderRadius: 5,
+      alignItems:"center",
     }
 });
 export default FirstRoutes;
