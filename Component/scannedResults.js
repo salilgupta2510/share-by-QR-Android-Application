@@ -1,14 +1,12 @@
 import React from 'react';
-import {Clipboard, TouchableHighlight, Button, TextInput, Linking,StyleSheet, Text, View } from 'react-native';
+import {Clipboard, TouchableOpacity, Button, TextInput, Linking,StyleSheet, Text, View } from 'react-native';
 
 class ScannedResults extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       bFlag: false,
-      text: false,
-      
-      
+      text: false,    
     };
     this.buttonFlag=this.buttonFlag.bind(this);
     // this.generateFunction=this.generateFunction.bind(this);
@@ -24,10 +22,10 @@ class ScannedResults extends React.Component {
       }
     });
   };
+
   buttonFlag(){
     // this.setState({bFlag: !this.state.bFlag})
-    this.openBrowser(this.props.scannedData.trim());
-    
+    this.openBrowser(this.props.scannedData.trim());    
   }
  
   searchGoogle(){
@@ -35,9 +33,11 @@ class ScannedResults extends React.Component {
     console.log(this.state.link);
     this.openBrowser(this.state.link);
   }
+
   onCopy(){
     Clipboard.setString(this.props.scannedData.trim());
   }
+
   generateText(){
     return(
       this.props.browserFlag && this.validateURL(this.props.scannedData) 
@@ -49,6 +49,7 @@ class ScannedResults extends React.Component {
     />
     );
   }
+
   validateURL = (scannedData) => {
     var pattern = /^((ftp|http|https):\/\/)?(www.)?(?!.*(ftp|http|https|www.))[a-zA-Z0-9_-]+(\.[a-zA-Z]+)+((\/)[\w#]+)*(\/\w+\?[a-zA-Z0-9_]+=\w+(&[a-zA-Z0-9_]+=\w+)*)?$/gm;
     return pattern.test(scannedData.trim());
@@ -58,23 +59,28 @@ class ScannedResults extends React.Component {
 
   render() {
     return (
-      <View>
+      <View style={{flex:1}}>
         {/* { this.props.browserFlag && !this.validateURL(this.props.scannedData) ? this.generateText() : false} */}
-        {this.props.browserFlag === false  ? <TouchableHighlight onPress={this.buttonFlag}>
+        {this.props.browserFlag === false  ? <TouchableOpacity onPress={this.buttonFlag}>
       <View style={styles.button}>
               <Text>Open in Browser</Text>
           </View>
-      </TouchableHighlight> && this.generateText() : this.generateText()}
-        {this.props.scannedData.trim().length < 15 ? <TouchableHighlight onPress={this.searchGoogle}>
+      </TouchableOpacity>: false}
+
+      <View style={{flex:1,padding:10,alignItems:"center",justifyContent:"center",backgroundColor:"#222"}}>
+        <Text style={{color:"#ffffff",fontSize:30}}>{this.props.scannedData}</Text>
+      </View>
+
+        {this.props.scannedData.trim().length > 15 ? <TouchableOpacity onPress={this.searchGoogle}>
             <View style={styles.button}>
                     <Text>Search in Google</Text>
                 </View>
-            </TouchableHighlight> : false}
-            {this.props.scannedData.trim().length > 15 ? <TouchableHighlight onPress={this.onCopy}>
+            </TouchableOpacity> : false}
+            {this.props.scannedData.trim().length > 15 ? <TouchableOpacity onPress={this.onCopy}>
             <View style={styles.button}>
                     <Text>Copy to ClipBoard</Text>
                 </View>
-            </TouchableHighlight> : false}
+            </TouchableOpacity> : false}
       </View>
     );
   }
@@ -85,9 +91,11 @@ const styles = StyleSheet.create({
     
   },
   button: {
-    backgroundColor: '#76c9f8',
+    backgroundColor: '#ffffff',
     padding: 10,
+    elevation:5,
     margin: 10,
+    alignItems:"center",
     borderRadius: 5
   }
 }); 

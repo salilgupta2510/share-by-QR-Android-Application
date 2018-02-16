@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet} from 'react-native';
 import { TabViewAnimated, TabBar, SceneMap } from 'react-native-tab-view';
 import FirstRoutes from './Firstroute.js';
 import SecondRoutes from './Secondroute.js';
@@ -14,8 +14,8 @@ export default class FirstPage extends PureComponent {
     data: false,
     newData: '',
     routes: [
-      { key: '1', title: 'First' },
-      { key: '2', title: 'Second' },
+      { key: '1', title: 'Decode' },
+      { key: '2', title: 'Encode' },
     ],
   };
 
@@ -25,7 +25,11 @@ export default class FirstPage extends PureComponent {
  
   _handleIndexChange = index => this.setState({ index });
  
-  _renderHeader = props => <TabBar {...props} />;
+  _renderFooter = props => 
+  <TabBar
+    {...props} 
+   indicatorStyle={styles.indicator}
+   style={styles.tabbar} />;
  
   _renderScene = SceneMap({
     '1': FirstRoute,
@@ -38,7 +42,7 @@ export default class FirstPage extends PureComponent {
         style={styles.container}
         navigationState={this.state}
         renderScene={this._renderScene}
-        renderHeader={this._renderHeader}
+        renderFooter={this._renderFooter}
         onIndexChange={this._handleIndexChange}
       />
     );
@@ -48,5 +52,11 @@ export default class FirstPage extends PureComponent {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  tabbar: {
+    backgroundColor: '#222',
+  },
+  indicator: {
+    backgroundColor: '#ffffff',
   },
 });
